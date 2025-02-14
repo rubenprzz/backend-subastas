@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: admin  
+      POSTGRES_PASSWORD: admin_password_123
+      POSTGRES_DB: subastas_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+    restart: always
+  
+  adminer:
+    image: adminer:latest
+    container_name: adminer
+    ports:
+      - "8080:8080"
+    networks:
+      - app_network
+    restart: always
+
+volumes:
+  postgres_data:
+
+networks:
+  app_network:
+    driver: bridge
